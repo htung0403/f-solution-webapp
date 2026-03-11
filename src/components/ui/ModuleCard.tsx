@@ -1,12 +1,14 @@
 import React from 'react';
 import { clsx } from 'clsx';
 import { HelpCircle, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export interface ModuleCardProps {
   icon: React.ElementType;
   title: string;
   description: string;
   colorScheme: 'red' | 'green' | 'pink' | 'blue' | 'orange' | 'teal' | 'purple' | 'cyan' | 'emerald' | 'amber' | 'slate';
+  path?: string;
 }
 
 const colorMap = {
@@ -27,10 +29,25 @@ export const ModuleCard: React.FC<ModuleCardProps> = ({
   icon: Icon,
   title,
   description,
-  colorScheme
+  colorScheme,
+  path
 }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (path) {
+      navigate(path);
+    }
+  };
+
   return (
-    <div className="group flex items-center bg-card rounded-xl p-4 transition-all duration-300 border border-border hover:border-primary/30 hover:shadow-sm cursor-pointer hover:-translate-y-0.5">
+    <div 
+      onClick={handleClick}
+      className={clsx(
+        "group flex items-center bg-card rounded-xl p-4 transition-all duration-300 border border-border hover:border-primary/30 hover:shadow-sm cursor-pointer hover:-translate-y-0.5",
+        !path && "opacity-60 grayscale-[0.5] cursor-not-allowed hover:translate-y-0 hover:border-border"
+      )}
+    >
       <div 
         className={clsx(
           "w-11 h-11 rounded-xl flex items-center justify-center shrink-0 mr-3 transition-transform group-hover:scale-110",
@@ -49,7 +66,7 @@ export const ModuleCard: React.FC<ModuleCardProps> = ({
         </p>
       </div>
 
-      <div className="flex flex-col gap-3 shrink-0 text-muted-foreground/30">
+      <div className="flex flex-col gap-3 shrink-0 text-muted-foreground/30" onClick={(e) => e.stopPropagation()}>
         <button className="hover:text-amber-500 transition-colors" title="Đánh dấu">
           <Star size={15} />
         </button>

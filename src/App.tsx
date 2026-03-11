@@ -6,6 +6,7 @@ import AIPage from './pages/AIPage';
 import CopyrightPage from './pages/CopyrightPage';
 import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
+import CandidatesPage from './pages/CandidatesPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/ho-so" element={<ProfilePage />} />
           <Route path="/hanh-chinh" element={<ModulePage />} />
           <Route path="/nhan-su" element={<ModulePage />} />
+          <Route path="/nhan-su/ung-vien" element={<CandidatesPage />} />
           <Route path="/kinh-doanh" element={<ModulePage />} />
           <Route path="/marketing" element={<ModulePage />} />
           <Route path="/tai-chinh" element={<ModulePage />} />

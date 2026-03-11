@@ -24,7 +24,7 @@ const MainLayout: React.FC = () => {
 
         {/* Scrollable Content */}
         <main className="flex-1 overflow-y-auto p-4 lg:p-6 pb-20 lg:pb-6 custom-scrollbar">
-          <div className="w-full">
+          <div className="w-full h-full flex flex-col">
             <Outlet />
           </div>
         </main>

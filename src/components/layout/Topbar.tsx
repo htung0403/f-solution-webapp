@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { sidebarMenu, extraMenuItems } from '../../data/sidebarMenu';
+import { moduleData } from '../../data/moduleData';
 import { clsx } from 'clsx';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -110,10 +111,50 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const displayNotifications = isExpanded ? notifications : notifications.slice(0, 5);
   const hasMore = notifications.length > 5;
 
-  // Find current page title
-  const allMenuItems = [...sidebarMenu, ...extraMenuItems, { path: '/ho-so', label: 'Hồ sơ cá nhân' }];
-  const currentItem = allMenuItems.find(item => item.path === location.pathname);
-  const pageTitle = currentItem?.label || 'Trang chủ';
+  // Enhanced breadcrumb logic
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  
+  const getLabel = (path: string) => {
+    // Check specific module items in moduleData first
+    for (const mainPath in moduleData) {
+      for (const section of moduleData[mainPath]) {
+        const found = section.items.find((item: any) => item.path === path);
+        if (found) return found.title;
+      }
+    }
+    
+    // Check sidebar and extra menu items
+    const menuItems = [...sidebarMenu, ...extraMenuItems, { path: '/ho-so', label: 'Hồ sơ cá nhân' }];
+    const found = menuItems.find(item => item.path === path);
+    if (found) return found.label;
+    
+    // Fallback labels for segments
+    const segmentLabels: Record<string, string> = {
+      'nhan-su': 'Nhân sự',
+      'hanh-chinh': 'Hành chính',
+      'kinh-doanh': 'Kinh doanh',
+      'marketing': 'Marketing',
+      'tai-chinh': 'Tài chính',
+      'mua-hang': 'Mua hàng',
+      'kho-van': 'Kho vận',
+      'dieu-hanh': 'Điều hành',
+      'he-thong': 'Hệ thống',
+      'ung-vien': 'Ứng viên'
+    };
+    
+    const segment = path.split('/').pop() || '';
+    return segmentLabels[segment] || segment;
+  };
+
+  const breadcrumbs = pathSegments.map((_, index) => {
+    const path = `/${pathSegments.slice(0, index + 1).join('/')}`;
+    return {
+      path,
+      label: getLabel(path)
+    };
+  });
+
+  const pageTitle = breadcrumbs.length > 0 ? breadcrumbs[breadcrumbs.length - 1].label : 'Trang chủ';
 
 
   useEffect(() => {
@@ -196,22 +237,28 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             </svg>
           </span>
 
-          {location.pathname !== '/' && (
-            <>
-              <Link to="/" className="text-muted-foreground text-[13px] font-medium hover:text-primary transition-colors">
-                Trang chủ
-              </Link>
+          <Link to="/" className="text-muted-foreground text-[13px] font-medium hover:text-primary transition-colors">
+            Trang chủ
+          </Link>
+
+          {breadcrumbs.map((crumb, idx) => (
+            <React.Fragment key={crumb.path}>
               <span className="text-muted-foreground/40 font-light">
                 <svg width="5" height="8" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 9L5 5L1 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
-            </>
-          )}
-
-          <div className="flex items-center bg-primary text-white px-1.5 py-0.5 rounded-lg text-[12px] font-bold shadow-sm ring-1 ring-primary/20">
-            {pageTitle}
-          </div>
+              {idx === breadcrumbs.length - 1 ? (
+                <div className="flex items-center bg-primary text-white px-1.5 py-0.5 rounded-lg text-[12px] font-bold shadow-sm ring-1 ring-primary/20">
+                  {crumb.label}
+                </div>
+              ) : (
+                <Link to={crumb.path} className="text-muted-foreground text-[13px] font-medium hover:text-primary transition-colors">
+                  {crumb.label}
+                </Link>
+              )}
+            </React.Fragment>
+          ))}
         </div>
         <div className="sm:hidden font-semibold text-foreground text-sm">
           {pageTitle}
