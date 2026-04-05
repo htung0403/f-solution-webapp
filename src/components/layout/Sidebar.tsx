@@ -82,24 +82,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               if (window.innerWidth < 1024) setIsOpen(false);
             }} />
           ))}
-
-          <div className="mt-auto w-full pt-6">
-            <button
-              onClick={handleUpBankSSO}
-              className={clsx(
-                "relative group flex items-center justify-center w-full rounded-xl font-semibold text-white shadow-lg overflow-hidden transition-all duration-300",
-                isOpen ? "px-4 py-3" : "h-11 w-11 p-0",
-                "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500"
-              )}
-              title="Truy cập UpBank"
-            >
-              <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className={clsx("flex items-center justify-center shrink-0", isOpen && "mr-3")}>
-                <img src={upbankLogo} alt="UpBank" className={clsx("w-[22px] h-[22px] object-contain", !isOpen && "mt-0.5")} />
-              </div>
-              <span className={clsx("transition-all duration-300", !isOpen && "opacity-0 w-0 hidden")}>Truy cập UpBank</span>
-            </button>
-          </div>
         </nav>
       </aside>
     </>
