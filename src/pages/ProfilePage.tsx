@@ -18,7 +18,10 @@ const ProfilePage: React.FC = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const defaultAvatar = "https://ui-avatars.com/api/?name=Le+Minh+Cong&background=random&color=random&size=128";
+  const currentUserRaw = localStorage.getItem('currentUser');
+  const currentUser = currentUserRaw ? JSON.parse(currentUserRaw) : { name: 'Người dùng', vi_tri: 'Khách', email: 'Chưa cập nhật' };
+
+  const defaultAvatar = currentUser.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=random&color=random&size=128`;
   const displayAvatar = avatar || defaultAvatar;
 
   // Initialize preview avatar when modal opens
@@ -101,16 +104,16 @@ const ProfilePage: React.FC = () => {
                   </div>
 
                   <div className="mt-4 text-center">
-                    <h2 className="text-xl font-bold text-foreground">Lê Minh Công</h2>
+                    <h2 className="text-xl font-bold text-foreground">{currentUser.name}</h2>
                     <div className="inline-flex items-center px-2.5 py-0.5 mt-1 rounded-full text-[11px] font-bold bg-primary/10 text-primary border border-primary/20">
-                      Admin
+                      {currentUser.vi_tri || 'Nhân viên'}
                     </div>
                   </div>
 
                   <div className="w-full mt-8 space-y-4">
                     <div className="flex items-center gap-3 text-sm text-muted-foreground">
                       <Mail size={16} className="text-primary/60 shrink-0" />
-                      <span className="truncate">admin@5fedu.com</span>
+                      <span className="truncate">{currentUser.email}</span>
                     </div>
                     <div className="flex items-center gap-3 text-sm text-muted-foreground">
                       <Phone size={16} className="text-primary/60 shrink-0" />
@@ -161,7 +164,7 @@ const ProfilePage: React.FC = () => {
             {/* Section 1: Thông tin cá nhân */}
             <SectionContainer icon={UserCircle} title="THÔNG TIN CÁ NHÂN">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <InfoItem icon={User} label="Họ tên" value="Lê Minh Công" />
+                <InfoItem icon={User} label="Họ tên" value={currentUser.name} />
                 <InfoItem icon={Calendar} label="Ngày sinh" value="Chưa cập nhật" />
                 <InfoItem icon={Fingerprint} label="Giới tính" value="Nam" badge="Nam" />
                 <InfoItem icon={IdCard} label="CMND/CCCD" value="Chưa cập nhật" />
@@ -191,7 +194,7 @@ const ProfilePage: React.FC = () => {
             {/* Section 3: Thông tin liên hệ */}
             <SectionContainer icon={Mail} title="THÔNG TIN LIÊN HỆ">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <InfoItem icon={Mail} label="Email công việc" value="admin@5fedu.com" highlight />
+                <InfoItem icon={Mail} label="Email công việc" value={currentUser.email} highlight />
                 <InfoItem icon={Mail} label="Email cá nhân" value="Chưa cập nhật" />
                 <InfoItem icon={Phone} label="Điện thoại" value="0900000000" highlight />
                 <InfoItem icon={User} label="Người liên hệ khẩn cấp" value="Chưa cập nhật" />

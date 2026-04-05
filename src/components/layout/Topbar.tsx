@@ -103,7 +103,10 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate();
   const { avatar } = useTheme();
 
-  const defaultAvatar = "https://ui-avatars.com/api/?name=Le+Minh+Cong&background=random&color=random";
+  const currentUserRaw = localStorage.getItem('currentUser');
+  const currentUser = currentUserRaw ? JSON.parse(currentUserRaw) : { name: 'Người dùng', vi_tri: 'Khách' };
+
+  const defaultAvatar = currentUser.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=random&color=random`;
   const userAvatar = avatar || defaultAvatar;
 
 
@@ -424,10 +427,10 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             </div>
             <div className="hidden sm:flex flex-col">
               <div className="flex items-center gap-1">
-                <span className="text-[13px] font-bold leading-tight text-foreground group-hover:text-primary transition-colors">Lê Minh Công</span>
+                <span className="text-[13px] font-bold leading-tight text-foreground group-hover:text-primary transition-colors">{currentUser.name}</span>
                 <ChevronDown size={12} className={clsx("text-muted-foreground transition-transform duration-200", showUserDropdown && "rotate-180")} />
               </div>
-              <span className="text-[10px] text-muted-foreground leading-tight font-medium">Quản trị viên (Admin)</span>
+              <span className="text-[10px] text-muted-foreground leading-tight font-medium">{currentUser.vi_tri || 'Nhân viên'}</span>
             </div>
           </div>
 
