@@ -4,7 +4,6 @@ import { sidebarMenu, extraMenuItems } from '../../data/sidebarMenu';
 import type { SidebarItem } from '../../data/sidebarMenu';
 import { clsx } from 'clsx';
 import { Sparkles } from 'lucide-react'; // Placeholder for the app logo icon
-import upbankLogo from '../../assets/Untitled-1-1.png';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -12,24 +11,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
-  const handleUpBankSSO = async () => {
-    try {
-      const response = await fetch('/api/sso', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'upedu2023@gmail.com' }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.open(data.url, '_blank');
-      } else {
-        alert('Có lỗi khi tạo SSO token: ' + (data.error || 'Unknown error'));
-      }
-    } catch (error) {
-      console.error('SSO connection error:', error);
-      alert('Không thể kết nối đến máy chủ SSO');
-    }
-  };
 
   return (
     <>
