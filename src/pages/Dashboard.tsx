@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ActionCard } from '../components/ui/ActionCard';
 import type { ActionCardProps } from '../components/ui/ActionCard';
-import { FileText, Users, Megaphone, Wallet, ShoppingCart, Box, Layers, Bot, Copyright, Search } from 'lucide-react';
+import { FileText, Users, Megaphone, Wallet, ShoppingCart, Box, Layers, Bot, Copyright, Search, Building, Trophy } from 'lucide-react';
 import { clsx } from 'clsx';
 import { moduleData } from '../data/moduleData';
 import { ModuleCard } from '../components/ui/ModuleCard';
+import upbankLogo from '../assets/Untitled-1-1.png';
 
 const dashboardModules: ActionCardProps[] = [
   {
@@ -76,11 +77,34 @@ const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'chuc-nang' | 'danh-dau' | 'tat-ca'>('chuc-nang');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const handleUpBankSSO = async () => {
+    try {
+      const response = await fetch('/api/sso', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: 'upedu2023@gmail.com' }), // Hardcoded for test
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.open(data.url, '_blank');
+      } else {
+        alert('Có lỗi khi tạo SSO token: ' + (data.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('SSO connection error:', error);
+      alert('Không thể kết nối đến máy chủ SSO');
+    }
+  };
+
+  const handleVinhDanhRedirect = () => {
+    window.open('https://fe-vinhdanh.vercel.app/', '_blank');
+  };
+
   const allSections = Object.values(moduleData).flat();
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="mb-6 lg:mb-8">
+      <div className="mb-6 lg:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-xl lg:text-2xl font-bold flex items-center gap-2 text-foreground">
           Chào buổi tối, <span className="text-primary">Lê Minh Công</span> 👋
         </h1>
@@ -149,6 +173,24 @@ const Dashboard: React.FC = () => {
               {...module}
             />
           ))}
+          {/* Action Card UpBank tích hợp SSO */}
+          <ActionCard
+            imageSrc={upbankLogo}
+            title="Truy cập UpBank"
+            description="Chuyển hướng một chạm an toàn đến ngân hàng nội bộ."
+            href="#"
+            colorScheme="blue"
+            onClick={handleUpBankSSO}
+          />
+          {/* Action Card Vinh Danh (Link ngoài) */}
+          <ActionCard
+            icon={Trophy}
+            title="Bảng Vinh Danh"
+            description="Cổng thông tin tuyên dương và khen thưởng cá nhân."
+            href="#"
+            colorScheme="amber"
+            onClick={handleVinhDanhRedirect}
+          />
         </div>
       )}
 

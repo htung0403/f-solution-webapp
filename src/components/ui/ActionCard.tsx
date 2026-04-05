@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 
 export interface ActionCardProps {
-  icon: React.ElementType;
+  icon?: React.ElementType;
+  imageSrc?: string;
   title: string;
   description: string;
   href: string;
-  colorScheme: 'red' | 'green' | 'pink' | 'blue' | 'orange' | 'teal' | 'purple' | 'cyan' | 'emerald' | 'amber';
+  colorScheme: 'red' | 'green' | 'pink' | 'blue' | 'orange' | 'teal' | 'purple' | 'cyan' | 'emerald' | 'amber' | 'slate';
+  onClick?: () => void;
 }
 
 const colorMap = {
@@ -28,14 +30,22 @@ const colorMap = {
 
 export const ActionCard: React.FC<ActionCardProps> = ({
   icon: Icon,
+  imageSrc,
   title,
   description,
   href,
-  colorScheme
+  colorScheme,
+  onClick
 }) => {
   return (
     <Link
       to={href}
+      onClick={(e) => {
+        if (onClick) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
       className="group relative block bg-card rounded-[24px] p-6 transition-all duration-300 hover:shadow-xl border border-border hover:border-primary/20 hover:-translate-y-1"
     >
       {/* Hover Arrow Icon */}
@@ -44,14 +54,22 @@ export const ActionCard: React.FC<ActionCardProps> = ({
       </div>
 
       <div className="flex flex-col items-center text-center h-full">
-        <div 
-          className={clsx(
-            "w-16 h-16 rounded-[22px] flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm",
-            colorMap[colorScheme]
-          )}
-        >
-          <Icon size={30} strokeWidth={2} />
-        </div>
+        {imageSrc ? (
+          <img 
+            src={imageSrc} 
+            alt={title}
+            className="h-20 w-auto min-w-[80px] rounded-[16px] object-cover mb-5 transition-transform duration-300 group-hover:scale-110 shadow-[0_6px_20px_rgba(0,0,0,0.15)]"
+          />
+        ) : (
+          <div 
+            className={clsx(
+              "w-16 h-16 rounded-[22px] flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm",
+              colorMap[colorScheme]
+            )}
+          >
+            {Icon && <Icon size={30} strokeWidth={2} />}
+          </div>
+        )}
         
         <h3 className="font-bold text-[17px] text-foreground mb-1.5 group-hover:text-primary transition-colors">
           {title}

@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { sidebarMenu, extraMenuItems } from '../../data/sidebarMenu';
 import type { SidebarItem } from '../../data/sidebarMenu';
 import { clsx } from 'clsx';
-import { Sparkles } from 'lucide-react'; // Placeholder for the app logo icon
+import { Sparkles, Building } from 'lucide-react'; // Placeholder for the app logo icon
+import upbankLogo from '../../assets/Untitled-1-1.png';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -11,6 +12,25 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
+  const handleUpBankSSO = async () => {
+    try {
+      const response = await fetch('/api/sso', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: 'upedu2023@gmail.com' }),
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.open(data.url, '_blank');
+      } else {
+        alert('Có lỗi khi tạo SSO token: ' + (data.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('SSO connection error:', error);
+      alert('Không thể kết nối đến máy chủ SSO');
+    }
+  };
+
   return (
     <>
       {/* Overlay - visible whenever sidebar is open ON MOBILE */}
@@ -62,6 +82,24 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               if (window.innerWidth < 1024) setIsOpen(false);
             }} />
           ))}
+
+          <div className="mt-auto w-full pt-6">
+            <button
+              onClick={handleUpBankSSO}
+              className={clsx(
+                "relative group flex items-center justify-center w-full rounded-xl font-semibold text-white shadow-lg overflow-hidden transition-all duration-300",
+                isOpen ? "px-4 py-3" : "h-11 w-11 p-0",
+                "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500"
+              )}
+              title="Truy cập UpBank"
+            >
+              <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className={clsx("flex items-center justify-center shrink-0", isOpen && "mr-3")}>
+                <img src={upbankLogo} alt="UpBank" className={clsx("w-[22px] h-[22px] object-contain", !isOpen && "mt-0.5")} />
+              </div>
+              <span className={clsx("transition-all duration-300", !isOpen && "opacity-0 w-0 hidden")}>Truy cập UpBank</span>
+            </button>
+          </div>
         </nav>
       </aside>
     </>
