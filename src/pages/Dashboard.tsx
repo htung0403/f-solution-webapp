@@ -15,12 +15,20 @@ const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'chuc-nang' | 'danh-dau' | 'tat-ca'>('chuc-nang');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const currentUserRaw = localStorage.getItem('currentUser');
+  const currentUser = currentUserRaw ? JSON.parse(currentUserRaw) : { name: 'Khách', email: '' };
+
   const handleUpBankSSO = async () => {
     try {
+      if (!currentUser.email) {
+         alert('Tài khoản này không có thông tin email hợp lệ để xác thực SSO.');
+         return;
+      }
+
       const response = await fetch('/api/sso', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'upedu2023@gmail.com' }), // Hardcoded for test
+        body: JSON.stringify({ email: currentUser.email }),
       });
       const data = await response.json();
       if (data.url) {
@@ -44,7 +52,7 @@ const Dashboard: React.FC = () => {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-6 lg:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-xl lg:text-2xl font-bold flex items-center gap-2 text-foreground">
-          Chào buổi tối, <span className="text-primary">Lê Minh Công</span> 👋
+          Chào buổi tối, <span className="text-primary">{currentUser.name}</span> 👋
         </h1>
       </div>
 

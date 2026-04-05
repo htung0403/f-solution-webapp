@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
+import ProtectedRoute from './components/layout/ProtectedRoute';
+import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import ModulePage from './pages/ModulePage';
 import AIPage from './pages/AIPage';
@@ -12,8 +14,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Dashboard />} />
+        <Route path="/login" element={<LoginPage />} />
+        
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Dashboard />} />
           <Route path="/ho-so" element={<ProfilePage />} />
           <Route path="/hanh-chinh" element={<ModulePage />} />
           <Route path="/nhan-su" element={<ModulePage />} />
@@ -29,8 +34,10 @@ function App() {
           <Route path="/ban-quyen" element={<CopyrightPage />} />
           <Route path="/cai-dat" element={<SettingsPage />} />
           
+          
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
