@@ -76,11 +76,11 @@ const NavItem = ({ item, onClick, isOpen }: { item: SidebarItem; onClick?: () =>
       onClick={onClick}
       className={({ isActive }) =>
         clsx(
-          'flex items-center rounded-xl text-sm font-medium transition-all duration-300 overflow-hidden whitespace-nowrap',
-          isOpen ? 'px-3 py-2.5 w-full justify-start' : 'w-11 h-11 justify-center',
+          'flex items-center rounded-xl text-[13px] font-bold transition-all duration-300 overflow-hidden whitespace-nowrap',
+          isOpen ? 'px-3 py-3 w-full justify-start' : 'w-11 h-11 justify-center',
           isActive
-            ? 'bg-primary text-white shadow-sm'
-            : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+            ? 'bg-gradient-to-r from-blue-600 to-indigo-500 text-white shadow-[0_4px_20px_-5px_rgba(59,130,246,0.5)] border border-blue-500/20'
+            : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground'
         )
       }
       title={!isOpen ? item.label : undefined}

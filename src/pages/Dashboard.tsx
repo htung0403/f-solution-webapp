@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
             className={clsx(
               "px-4 py-1.5 rounded-md text-[13px] font-bold transition-all duration-200",
               activeTab === 'chuc-nang'
-                ? "bg-card text-primary shadow-sm ring-1 ring-black/5"
+                ? "bg-card text-primary shadow-sm ring-1 ring-white/5"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
@@ -69,18 +69,18 @@ const Dashboard: React.FC = () => {
             className={clsx(
               "px-4 py-1.5 rounded-md text-[13px] font-bold transition-all duration-200",
               activeTab === 'danh-dau'
-                ? "bg-card text-primary shadow-sm ring-1 ring-black/5"
+                ? "bg-card text-primary shadow-sm ring-1 ring-white/5"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            Đánh dấu
+            Dấu trang
           </button>
           <button
             onClick={() => setActiveTab('tat-ca')}
             className={clsx(
               "px-4 py-1.5 rounded-md text-[13px] font-bold transition-all duration-200",
               activeTab === 'tat-ca'
-                ? "bg-card text-primary shadow-sm ring-1 ring-primary/10"
+                ? "bg-card text-primary shadow-sm ring-1 ring-primary/20"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >

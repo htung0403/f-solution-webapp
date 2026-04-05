@@ -4,27 +4,19 @@
 :root {
   --font-sans: 'Inter', 'Noto Sans', sans-serif;
   --primary: #3b82f6;
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --border: #e2e8f0;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
+  --background: #0B0F19;
+  --foreground: #f8fafc;
+  --card: #151B2B;
+  --border: #1E293B;
+  --muted: #1E293B;
+  --muted-foreground: #94a3b8;
+  --accent: #1E293B;
+  --accent-foreground: #f8fafc;
   --ring: #3b82f6;
 }
 
 .dark {
-  --background: #020617;
-  --foreground: #f8fafc;
-  --card: #0f172a;
-  --border: #1e293b;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
-  --ring: #1d4ed8;
+  /* Theme tối đã được chuyển làm mặc định vào :root */
 }
 
 @theme {
