@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { sidebarMenu, extraMenuItems } from '../../data/sidebarMenu';
 import type { SidebarItem } from '../../data/sidebarMenu';
 import { clsx } from 'clsx';
-import { Sparkles } from 'lucide-react'; // Placeholder for the app logo icon
+import upbankLogo from '../../assets/Untitled-1-1.png';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -37,10 +37,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
           isOpen ? "px-4" : "justify-center"
         )}>
           <div className={clsx(
-            "rounded-xl bg-primary text-white flex items-center justify-center shrink-0 transition-all duration-300",
+            "rounded-xl bg-primary flex items-center justify-center shrink-0 transition-all duration-300 overflow-hidden",
             isOpen ? "w-8 h-8" : "w-10 h-10"
           )}>
-            <Sparkles size={20} />
+            <img src={upbankLogo} alt="Logo" className="w-full h-full object-cover" />
           </div>
           <div className={clsx("flex flex-col ml-3 whitespace-nowrap transition-opacity duration-300", !isOpen && "opacity-0 hidden")}>
             <span className="font-bold text-[15px] leading-tight text-foreground">5F template</span>

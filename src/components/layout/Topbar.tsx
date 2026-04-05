@@ -226,7 +226,7 @@ const Topbar: React.FC<TopbarProps> = ({ sidebarOpen, setSidebarOpen }) => {
           {sidebarOpen ? <PanelLeftClose size={12} /> : <PanelLeft size={12} />}
         </button>
 
-        <div className="hidden sm:flex items-center gap-2 lg:gap-2.5">
+        <div className="hidden sm:flex items-center gap-2 lg:gap-2.5 ml-1">
           <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
             <Home size={14} strokeWidth={2} />
           </Link>

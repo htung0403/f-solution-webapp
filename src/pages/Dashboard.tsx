@@ -1,76 +1,14 @@
 import React, { useState } from 'react';
 import { ActionCard } from '../components/ui/ActionCard';
 import type { ActionCardProps } from '../components/ui/ActionCard';
-import { FileText, Users, Megaphone, Wallet, ShoppingCart, Box, Layers, Bot, Copyright, Search, Trophy } from 'lucide-react';
+import { Search, Trophy } from 'lucide-react';
 import { clsx } from 'clsx';
 import { moduleData } from '../data/moduleData';
 import { ModuleCard } from '../components/ui/ModuleCard';
 import upbankLogo from '../assets/Untitled-1-1.png';
 
 const dashboardModules: ActionCardProps[] = [
-  {
-    icon: FileText,
-    title: 'Hành chính',
-    description: 'Công văn, hợp đồng, văn thư lưu trữ.',
-    href: '/hanh-chinh',
-    colorScheme: 'orange'
-  },
-  {
-    icon: Users,
-    title: 'Nhân sự',
-    description: 'Tuyển dụng, đào tạo, chấm công, lương.',
-    href: '/nhan-su',
-    colorScheme: 'emerald'
-  },
-  {
-    icon: Megaphone,
-    title: 'Marketing',
-    description: 'Chiến dịch, khách hàng, báo cáo marketing.',
-    href: '/marketing',
-    colorScheme: 'pink'
-  },
-  {
-    icon: Wallet,
-    title: 'Tài chính',
-    description: 'Kế toán, ngân sách, báo cáo tài chính.',
-    href: '/tai-chinh',
-    colorScheme: 'blue'
-  },
-  {
-    icon: ShoppingCart,
-    title: 'Mua hàng',
-    description: 'Đặt hàng, nhà cung cấp, đấu thầu.',
-    href: '/mua-hang',
-    colorScheme: 'orange'
-  },
-  {
-    icon: Box,
-    title: 'Kho vận',
-    description: 'Tồn kho, xuất nhập kho, vận chuyển.',
-    href: '/kho-van',
-    colorScheme: 'cyan'
-  },
-  {
-    icon: Layers,
-    title: 'Hệ thống',
-    description: 'Cấu hình, phân quyền và nhân sự.',
-    href: '/he-thong',
-    colorScheme: 'slate' as any // Will update colorMap in ActionCard to handle slate instead of adding custom one
-  },
-  {
-    icon: Bot,
-    title: 'Trợ lý AI',
-    description: 'Cấu hình, phân quyền và nhân sự.',
-    href: '/tro-ly-ai',
-    colorScheme: 'purple'
-  },
-  {
-    icon: Copyright,
-    title: 'Thông tin bản quyền',
-    description: 'Quản lý sở hữu trí tuệ và thông tin nhà phát triển.',
-    href: '/ban-quyen',
-    colorScheme: 'blue'
-  }
+
 ];
 
 const Dashboard: React.FC = () => {
