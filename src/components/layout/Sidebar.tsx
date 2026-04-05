@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { sidebarMenu, extraMenuItems } from '../../data/sidebarMenu';
 import type { SidebarItem } from '../../data/sidebarMenu';
 import { clsx } from 'clsx';
-import { Sparkles, Building } from 'lucide-react'; // Placeholder for the app logo icon
+import { Sparkles } from 'lucide-react'; // Placeholder for the app logo icon
 import upbankLogo from '../../assets/Untitled-1-1.png';
 
 interface SidebarProps {
