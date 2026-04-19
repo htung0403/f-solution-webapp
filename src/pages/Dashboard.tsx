@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
       });
       const data = await response.json();
       if (data.url) {
-        window.open(data.url, '_blank');
+        window.location.href = data.url;
       } else {
         alert('Có lỗi khi tạo SSO token: ' + (data.error || 'Unknown error'));
       }
@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleVinhDanhRedirect = () => {
-    window.open('https://fe-vinhdanh.vercel.app/', '_blank');
+    window.location.href = 'https://fe-vinhdanh.vercel.app/';
   };
 
   const allSections = Object.values(moduleData).flat();
